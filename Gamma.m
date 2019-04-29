@@ -23,6 +23,7 @@ for l=1:length(Wiezy)
         else
             error(['Blad w danej "klasa" dla wiezu nr  ', num2str(l)]);
         end
+    % wiezy kinematyczne
     elseif(lower(Wiezy(l).typ(1)) == 'k')
         if(lower(Wiezy(l).klasa(1)) == 'o')
             Gamma(m:(m+1), 1) = RotMat(q_phi(q, Wiezy(l).bodyi)) * Wiezy(l).sA * ...

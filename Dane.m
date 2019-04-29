@@ -13,8 +13,12 @@
 %     'dfoc',{},... % pochodna funkcji od czasu dla wiezow dopisanych
 %     'ddfoc',{}) % druga pochodna funkcji od czasu dla wiezow dopisanych
 
-wspolrzedne; 
+wspolrzedne;
 
+Tmax = 1.5; % Czas zakonczenia analizy ukladu
+dt = 0.01; % Odstep czasowy miedzy mierzonymi punktami
+
+ZakresCzasu = 0:dt:Tmax;
 % Wektory sA i sB wyliczone na podstawie powyzszych punktow
 
 sA0O=[O(1);O(2)]; sB2O=[O(1)-c2(1);O(2)-c2(2)];  % Para obrotowa 0-2 ziel-pom

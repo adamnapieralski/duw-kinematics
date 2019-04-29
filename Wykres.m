@@ -6,7 +6,7 @@ function [] = printGraphs(obj)
 %   obj - symbol czlonu (wtedy podana ma byc liczba) / punktu (litera np.
 %           'A') ktorego przebiegi chce sie otrzymac
 
-    Skrypt;
+    Obliczenia;
 
     if isnumeric(obj)
         figure();
