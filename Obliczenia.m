@@ -56,34 +56,32 @@ for k=1:length(Wiezy)
 end
 
 % zapisanie wyliczonych danych o mechanizmie w czasie
-[T,Q,DQ,DDQ]=Mechanizm(Wiezy, rows);
-
-%rysowanie przebiegów srodkow mas
-%plot(T(1,:),Q(10,:))
+[T,Q,DQ,DDQ] = Mechanizm(Wiezy, rows);
 
 % przebiegow punktow charakterystycznych
 P = zeros(2*lparko, length(ZakresCzasu));
 DP = zeros(2*lparko, length(ZakresCzasu));
 DDP = zeros(2*lparko, length(ZakresCzasu));
-X=zeros(2, 1);
+tempXY=zeros(2, 1);
 lroz=1;
+
 % polozenia
 for i=ZakresCzasu
     for k=1:lparko
-        X=[Q((Wiezy(k).bodyj-1)*3+1,lroz);Q((Wiezy(k).bodyj-1)*3+2,lroz)]+RotMat(Q((Wiezy(k).bodyj-1)*3+3,lroz))*Wiezy(k).sB;
-        P(2*k-1,lroz)=X(1);
-        P(2*k,lroz)=X(2);
+        tempXY=[Q((Wiezy(k).bodyj-1)*3+1,lroz); Q((Wiezy(k).bodyj-1)*3+2,lroz)] + RotMat(Q((Wiezy(k).bodyj-1)*3+3,lroz))*Wiezy(k).sB;
+        P(2*k-1,lroz)=tempXY(1);
+        P(2*k,lroz)=tempXY(2);
     end
     lroz=lroz+1;
 end
-% plot(T(1,:),P(21,:))
+
 % predkosci
 lroz=1;
 for i=ZakresCzasu
     for k=1:lparko
-        X=[DQ((Wiezy(k).bodyj-1)*3+1,lroz); DQ((Wiezy(k).bodyj-1)*3+2,lroz)]+Omega*RotMat(Q((Wiezy(k).bodyj-1)*3+3,lroz))*Wiezy(k).sB*DQ((Wiezy(k).bodyj-1)*3+3,lroz);
-        DP(2*k-1,lroz)=X(1);
-        DP(2*k,lroz)=X(2);
+        tempXY=[DQ((Wiezy(k).bodyj-1)*3+1,lroz); DQ((Wiezy(k).bodyj-1)*3+2,lroz)]+Omega*RotMat(Q((Wiezy(k).bodyj-1)*3+3,lroz))*Wiezy(k).sB*DQ((Wiezy(k).bodyj-1)*3+3,lroz);
+        DP(2*k-1,lroz)=tempXY(1);
+        DP(2*k,lroz)=tempXY(2);
     end
     lroz=lroz+1;
 end
@@ -92,11 +90,9 @@ end
 lroz=1;
 for i=ZakresCzasu
     for k=1:lparko
-    X=[DDQ((Wiezy(k).bodyj-1)*3+1,lroz);DDQ((Wiezy(k).bodyj-1)*3+2,lroz)]-RotMat(Q((Wiezy(k).bodyj-1)*3+3,lroz))*Wiezy(k).sB*(DQ((Wiezy(k).bodyj-1)*3+3,lroz))^2+Omega*RotMat(Q((Wiezy(k).bodyj-1)*3+3,lroz))*Wiezy(k).sB*DDQ((Wiezy(k).bodyj-1)*3+3,lroz);
-    DDP(2*k-1,lroz)=X(1);
-    DDP(2*k,lroz)=X(2);
+    tempXY=[DDQ((Wiezy(k).bodyj-1)*3+1,lroz); DDQ((Wiezy(k).bodyj-1)*3+2,lroz)]-RotMat(Q((Wiezy(k).bodyj-1)*3+3,lroz))*Wiezy(k).sB*(DQ((Wiezy(k).bodyj-1)*3+3,lroz))^2+Omega*RotMat(Q((Wiezy(k).bodyj-1)*3+3,lroz))*Wiezy(k).sB*DDQ((Wiezy(k).bodyj-1)*3+3,lroz);
+    DDP(2*k-1,lroz)=tempXY(1);
+    DDP(2*k,lroz)=tempXY(2);
     end
     lroz=lroz+1;
 end
-
-%plot(T(1,:),DDP(21,:))

@@ -15,12 +15,13 @@ function [T,Q,DQ,DDQ]=Mechanizm(Wiezy, rows)
 wspolrzedne; % zaladowanie wspolrzednych charakterystycznych
 Dane; %zaladowanie danych
 
+% wektor wspolrzednych absolutnych
 q = [c1; c2; c3; c4; c5; c6; c7; c8; c9; c10];   
     
-qdot=zeros(size(q));
-qddot=zeros(size(q));
+dq = zeros(size(q));
+ddq = zeros(size(q));
 
-lroz=0; % Licznik rozwi¹zañ (sluzy do numerowania kolumn w tablicach z wynikami)
+lroz = 0; % Licznik rozwiazan (sluzy do numerowania kolumn w tablicach z wynikami)
 
 Q = zeros(size(q,1), length(ZakresCzasu));
 DQ = zeros(size(Q));
@@ -33,19 +34,20 @@ for t=ZakresCzasu
     %  rozwiazanie z poprzedniej chwili jest przybli¿eniem poczatkowym w chwili kolejnej, 
     %  powiêkszone o skladniki wynikajace z obliczonej prêdkoœci i przyspieszenia
     %  (na podstawie 3 pierwszych wyrazow rozwiniecia q w szereg Taylora w otoczeniu danego czasu t).
-    q0=q+qdot*dt+0.5*qddot*dt*dt;
-    q=NewRaph(q0,t,Wiezy,rows); 
+    q0 = q + dq*dt + 0.5*ddq*dt*dt;
+    q = NewRaph(q0,t,Wiezy,rows); 
     
     % Zadanie o predkosciach
-    qdot=MacierzJacobiego(q,t,Wiezy,rows)\WektorPP(q,t,Wiezy,rows);  % Zadanie o predkosci
-
+    dq = Predkosc(q, t, Wiezy, rows);
+    
     % Zadanie o przyspieszeniach
-    qddot=MacierzJacobiego(q,t,Wiezy,rows)\Gamma(q,qdot,t,Wiezy,rows);  % Zadanie o przyspieszeniu
-
+    %qddot=MacierzJacobiego(q,t,Wiezy,rows)\Gamma(q,qdot,t,Wiezy,rows);  % Zadanie o przyspieszeniu
+    ddq = Przyspieszenie(q, dq, t, Wiezy, rows);
+    
     % Zapis do tablic gromadzacych wyniki
-    lroz=lroz+1;
-    T(1,lroz)=t; 
-    Q(:,lroz)=q;
-    DQ(:,lroz)=qdot;
-    DDQ(:,lroz)=qddot;
+    lroz = lroz+1;
+    T(1,lroz) = t;
+    Q(:,lroz) = q;
+    DQ(:,lroz) = dq;
+    DDQ(:,lroz) = ddq;
 end

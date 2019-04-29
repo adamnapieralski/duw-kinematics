@@ -7,7 +7,9 @@ function [] = printGraphs(obj)
 %           'A') ktorego przebiegi chce sie otrzymac
 
     Obliczenia;
-
+    
+    plotValid = false;
+    
     if isnumeric(obj)
         figure();
         subplot(3, 1, 1);
@@ -19,6 +21,7 @@ function [] = printGraphs(obj)
         subplot(3, 1, 3);
         plot(T(1,:), DDQ((obj-1)*3+1:(obj-1)*3 + 3, :))
          legend('ddx', 'ddy', 'dd\phi');
+        plotValid = true;
     else
         for i=1:length(Wiezy)
             if(Wiezy(i).punkt==obj)
@@ -32,10 +35,13 @@ function [] = printGraphs(obj)
                 subplot(3, 1, 3);
                 plot(T(1,:), DDP(2*i-1:2*i,:));
                 legend('ddx', 'ddy');
+                plotValid = true;
             end  
-        end
+        end 
+    end
+    
+    if(plotValid == false)
         disp('Brak danego obiektu');
-        
     end
 end
 

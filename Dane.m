@@ -12,6 +12,8 @@
 %     'foc',{},... % funkcja od czasu dla wiezow dopisanych
 %     'dfoc',{},... % pochodna funkcji od czasu dla wiezow dopisanych
 %     'ddfoc',{}) % druga pochodna funkcji od czasu dla wiezow dopisanych
+%     'punkt', {}) % liczba okreslajaca czlon lub litera okreslajaca punkt
+%     charakterystyczny do drukowania wykresow
 
 wspolrzedne;
 
@@ -33,9 +35,6 @@ sA0N=[N(1)-0.0;N(2)-0.0]; sB6N=[N(1)-c6(1);N(2)-c6(2)];  % Para obrotowa 0-6 zie
 sA0H=[H(1)-0.0;H(2)-0.0]; sB8H=[H(1)-c8(1);H(2)-c8(2)];  % Para obrotowa 0-8 ziel-silownik_2H
 sA1A=[A(1)-c1(1);A(2)-c1(2)]; sB4A=[A(1)-c4(1);A(2)-c4(2)];  % Para obrotowa 1-4 fiol-nieb
 sA4B=[B(1)-c4(1);B(2)-c4(2)]; sB5B=[B(1)-c5(1);B(2)-c5(2)];  % Para obrotowa 5-4 niebieski-deska
-
-% daneobrot=[sA0O' sB2O';sA2P' sB1P';sA2F' sB3F';sA2G' sB9G';sA3E' sB10E';sA3C' sB5C';sA1D' sB10D'; sA10M' sB7M'; sA0N' sB6N'; sA0H' sB8H';
-%            sA1A' sB4A';sA4B' sB5B'];
 
 Wiezy(1) = cell2struct(...
     {'kinematyczny', 'obrotowy', 0, 2,  sA0O, sB2O, [], [], [], [], [], 'O'}', ...
